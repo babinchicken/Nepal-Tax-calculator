@@ -297,9 +297,9 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
          data-ne="राजस्व विभाग · FY २०८२/८३ (पुरानो) vs FY २०८३/८४ (नयाँ) · रु. २ करोडसम्म">
       IRD Nepal · FY 2082/83 (old) vs FY 2083/84 (new) · Up to Rs. 2 Crore</div>
     <h1>🇳🇵 <span data-en="Nepal Tax Calculator" data-ne="नेपाल आयकर क्याल्कुलेटर">Nepal Tax Calculator</span></h1>
-    <p data-en="Old regime vs new budget · Individual & couple filing · Which saves more?"
+    <p data-en="Old government vs new budget · Individual & couple filing · Which saves more?"
        data-ne="पुरानो र नयाँ बजेट तुलना · एकल र दम्पती कर · कुन फाइदाजनक?">
-      Old regime vs new budget · Individual &amp; couple filing · Which saves more?</p>
+      Old government vs new budget · Individual &amp; couple filing · Which saves more?</p>
   </div>
 
   <!-- INPUT -->
@@ -374,7 +374,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
         <div class="ca-sub">Combined income · new slabs (10L@1%, same for everyone)</div>
         <div class="ca-rows" id="ca-couple-rows"></div>
         <div class="ca-total-row">
-          <span>New regime total tax</span>
+          <span>New government total tax</span>
           <span class="ca-total" id="ca-couple-total">—</span>
         </div>
       </div>
@@ -389,7 +389,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
   <div class="regime-grid">
     <div class="rc old" id="old-card">
       <div class="wbadge">✦ LOWER TAX</div>
-      <div class="rname" data-en="Old Regime" data-ne="पुरानो व्यवस्था">Old Regime</div>
+      <div class="rname" data-en="Old Government" data-ne="पुरानो व्यवस्था">Old Government</div>
       <div class="fy-tag">FY 2082/83</div>
       <div class="rtax" id="old-tax">Rs. 0</div>
       <div class="rrate" id="old-rate">Effective rate: 0.00%</div>
@@ -401,7 +401,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
     </div>
     <div class="rc new" id="new-card">
       <div class="wbadge">✦ LOWER TAX</div>
-      <div class="rname" data-en="New Regime" data-ne="नयाँ व्यवस्था">New Regime</div>
+      <div class="rname" data-en="New Government" data-ne="नयाँ व्यवस्था">New Government</div>
       <div class="fy-tag">FY 2083/84</div>
       <div class="rtax" id="new-tax">Rs. 0</div>
       <div class="rrate" id="new-rate">Effective rate: 0.00%</div>
@@ -430,7 +430,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
       <div class="fy-item"><span class="fy-dot" style="background:rgba(255,255,255,0.18);border:1px solid var(--border2);"></span><span data-en="Active slab" data-ne="सक्रिय स्ल्याब">Active slab</span></div>
     </div>
     <div class="chart-wrap">
-      <canvas id="chart" role="img" aria-label="Tax per slab comparison old vs new regime">Slab chart</canvas>
+      <canvas id="chart" role="img" aria-label="Tax per slab comparison old vs new government">Slab chart</canvas>
     </div>
     <div class="sthead">
       <span style="text-align:left;">Slab</span>
@@ -458,9 +458,9 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
 
   <!-- TAKE HOME -->
   <div class="card">
-    <div class="clabel" data-en="04 — Take-home summary (best regime)" data-ne="०४ — घर लैजाने रकम सारांश">04 — Take-home summary (best regime)</div>
+    <div class="clabel" data-en="04 — Take-home summary (best government)" data-ne="०४ — घर लैजाने रकम सारांश">04 — Take-home summary (best government)</div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">
-      <span data-en="Best regime:" data-ne="उत्तम व्यवस्था:">Best regime:</span> <span id="best-name" style="color:var(--gold);font-weight:600;">—</span>
+      <span data-en="Best government:" data-ne="उत्तम व्यवस्था:">Best government:</span> <span id="best-name" style="color:var(--gold);font-weight:600;">—</span>
       &nbsp;·&nbsp; <span data-en="You save:" data-ne="बचत:">You save:</span> <span id="best-save" style="color:var(--gold);font-family:var(--mono);">Rs. 0</span> per year
     </div>
     <div class="th-grid">
@@ -685,7 +685,7 @@ function recalcCoupleAnalytics(p1,p2){
         <span class="ca-row-total">${fi(tJoint.total)}</span>
       </div>
     </div>
-    <div style="font-size:11px;color:var(--green);padding:8px 4px;">✦ New regime: no couple/individual distinction — same slabs for everyone</div>`;
+    <div style="font-size:11px;color:var(--green);padding:8px 4px;">✦ New government: no couple/individual distinction — same slabs for everyone</div>`;
 
   document.getElementById('ca-ind-total').textContent=fi(totalSep);
   document.getElementById('ca-couple-total').textContent=fi(totalJoint);
@@ -718,7 +718,7 @@ function recalc(){
   const oldWins = oldResult.total < newResult.total;
   const newWins = newResult.total < oldResult.total;
   const diff = Math.abs(oldResult.total - newResult.total);
-  const winnerName = oldWins?'Old Regime (FY 2082/83)':newWins?'New Regime (FY 2083/84)':'Equal';
+  const winnerName = oldWins?'Old Government (FY 2082/83)':newWins?'New Government (FY 2083/84)':'Equal';
 
   document.getElementById('old-card').classList.toggle('winner',oldWins);
   document.getElementById('new-card').classList.toggle('winner',newWins);
@@ -735,8 +735,8 @@ function recalc(){
 
   const savingSign = newWins?'saves':'costs extra';
   document.getElementById('slabel').textContent=diff===0
-    ? 'Both regimes give the same result'
-    : `New regime ${savingSign} Rs. ${Math.round(diff).toLocaleString('en-IN')} vs old regime`;
+    ? 'Both governments give the same result'
+    : `New government ${savingSign} Rs. ${Math.round(diff).toLocaleString('en-IN')} vs old government`;
   document.getElementById('smonth').textContent=diff===0?'No difference'
     :`Rs. ${Math.round(diff/12).toLocaleString('en-IN')} / month ${newWins?'saved':'extra'}`;
   document.getElementById('samt').textContent=fi(diff);
