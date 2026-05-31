@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Primary SEO -->
+<title>Nepal Tax Calculator 2083/84 | नेपाल आयकर क्याल्कुलेटर | Free Online IRD Tax Tool</title>
+<meta name="description" content="Free Nepal income tax calculator for FY 2083/84 (new budget) vs FY 2082/83. Compare old and new tax slabs, calculate individual and couple tax, see take-home salary. नेपालको नयाँ बजेट अनुसार आयकर गणना गर्नुहोस्।">
+<meta name="keywords" content="Nepal tax calculator, Nepal income tax 2083/84, नेपाल आयकर, IRD Nepal, tax slab Nepal 2083, nepal salary tax, आयकर क्याल्कुलेटर, नेपाल कर, couple tax Nepal, new budget Nepal tax">
+<meta name="author" content="Nepal Tax Calculator">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yourusername.github.io/nepal-tax-calculator/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourusername.github.io/nepal-tax-calculator/">
+<meta property="og:title" content="Nepal Tax Calculator 2083/84 | नेपाल आयकर क्याल्कुलेटर">
+<meta property="og:description" content="Free Nepal income tax calculator. Compare FY 2082/83 vs FY 2083/84 new budget slabs. Individual and couple filing. नेपालको नयाँ बजेट अनुसार आयकर गणना।">
+<meta property="og:image" content="https://yourusername.github.io/nepal-tax-calculator/og-image.png">
+<meta property="og:locale" content="ne_NP">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nepal Tax Calculator 2083/84 | नेपाल आयकर क्याल्कुलेटर">
+<meta name="twitter:description" content="Free Nepal income tax calculator for new FY 2083/84 budget. Compare old vs new slabs.">
+<meta name="twitter:image" content="https://yourusername.github.io/nepal-tax-calculator/og-image.png">
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Nepal Tax Calculator | नेपाल आयकर क्याल्कुलेटर",
+  "url": "https://yourusername.github.io/nepal-tax-calculator/",
+  "description": "Free Nepal income tax calculator for FY 2083/84 new budget vs FY 2082/83. Compare old and new tax slabs for individuals and couples.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "NPR" },
+  "inLanguage": ["en", "ne"],
+  "keywords": "Nepal tax, आयकर, IRD, salary tax, income tax calculator Nepal",
+  "about": {
+    "@type": "Thing",
+    "name": "Nepal Income Tax FY 2083/84"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the new Nepal income tax slabs for FY 2083/84?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "New FY 2083/84 slabs: Up to Rs 10 lakh at 1%, Rs 10-15 lakh at 10%, Rs 15-25 lakh at 20%, Rs 25-40 lakh at 27%, above Rs 40 lakh at 29%. The couple distinction has been removed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "नेपालको नयाँ बजेट FY 2083/84 मा आयकर दर कति छ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "नयाँ FY 2083/84 मा: रु. १० लाखसम्म १%, १०-१५ लाख १०%, १५-२५ लाख २०%, २५-४० लाख २७%, ४० लाखमाथि २९%। दम्पती र एकल करदाताको लागि एउटै दर।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I file taxes individually or as a couple in Nepal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under the new FY 2083/84 budget, the same tax slabs apply to everyone — there is no separate couple assessment. Filing separately means each income is taxed independently. Filing jointly means combined income is taxed together, which may push into higher slabs."
+      }
+    }
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0e0f11;--bg2:#16181c;--bg3:#1e2128;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --text:#f0ede8;--muted:#7a7d85;
+  --red:#e05c5c;--red-soft:rgba(224,92,92,0.09);
+  --green:#3ecf8e;--green-soft:rgba(62,207,142,0.09);
+  --gold:#f5c842;--gold-soft:rgba(245,200,66,0.07);
+  --blue:#5b9cf6;--blue-soft:rgba(91,156,246,0.09);
+  --amber:#f0962a;
+  --font:'Syne',sans-serif;--mono:'DM Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:48px 20px 80px;}
+
+/* HEADER */
+.header{text-align:center;margin-bottom:44px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
+h1{font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-0.02em;line-height:1.05;
+  background:linear-gradient(135deg,var(--text) 40%,#555 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+.header p{color:var(--muted);font-size:13px;}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;}
+.clabel{font-family:var(--mono);font-size:10px;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;margin-bottom:16px;}
+
+/* TOGGLE */
+.toggle-row{display:flex;gap:10px;margin-bottom:24px;}
+.tbtn{flex:1;padding:12px;border-radius:10px;border:1px solid var(--border);background:transparent;
+  color:var(--muted);font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;}
+.tbtn.active{background:var(--bg3);border-color:var(--border2);color:var(--text);}
+.tbtn:hover:not(.active){border-color:var(--border2);color:var(--text);}
+
+/* INCOME INPUT */
+.income-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.income-prefix{font-family:var(--mono);font-size:18px;color:var(--muted);flex-shrink:0;}
+.income-field{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:10px;
+  padding:12px 16px;font-family:var(--mono);font-size:20px;font-weight:500;color:var(--text);
+  outline:none;transition:border-color 0.2s;width:100%;}
+.income-field:focus{border-color:var(--border2);}
+.income-field::placeholder{color:var(--muted);font-size:15px;}
+.income-badge{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;
+  padding:8px 14px;font-family:var(--mono);font-size:13px;color:var(--gold);white-space:nowrap;flex-shrink:0;}
+
+/* SLIDER */
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:var(--bg3);border-radius:99px;outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--text);border:3px solid var(--bg);cursor:pointer;transition:transform 0.15s;}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);}
+.ticks{display:flex;justify-content:space-between;margin-top:8px;}
+.tick{font-family:var(--mono);font-size:10px;color:var(--muted);}
+
+/* COUPLE */
+.couple-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.ig label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:7px;}
+.ig input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;
+  font-family:var(--mono);font-size:15px;color:var(--text);outline:none;transition:border-color 0.2s;}
+.ig input:focus{border-color:var(--border2);}
+.partner-hint{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;padding-left:2px;}
+.combined-row{background:var(--bg3);border-radius:8px;padding:10px 14px;
+  font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;}
+
+/* NEW FY NOTICE */
+.new-fy-notice{background:rgba(62,207,142,0.07);border:1px solid rgba(62,207,142,0.2);border-radius:10px;
+  padding:12px 16px;margin-bottom:16px;font-size:12px;color:var(--muted);line-height:1.6;}
+.new-fy-notice strong{color:var(--green);}
+
+/* REGIME CARDS */
+.regime-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.rc{border-radius:14px;padding:20px 18px;border:1px solid var(--border);position:relative;transition:border-color 0.3s;}
+.rc.old{background:var(--red-soft);}
+.rc.new{background:var(--green-soft);}
+.rc.winner{border-color:var(--gold);}
+.wbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:#1a1200;font-size:10px;font-weight:700;font-family:var(--mono);
+  letter-spacing:0.1em;padding:3px 12px;border-radius:99px;white-space:nowrap;display:none;}
+.rc.winner .wbadge{display:block;}
+.rname{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.old .rname{color:var(--red);}
+.new .rname{color:var(--green);}
+.fy-tag{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:4px;margin-bottom:10px;}
+.old .fy-tag{background:rgba(224,92,92,0.15);color:var(--red);}
+.new .fy-tag{background:rgba(62,207,142,0.15);color:var(--green);}
+.rtax{font-family:var(--mono);font-size:22px;font-weight:500;letter-spacing:-0.02em;margin-bottom:3px;}
+.old .rtax{color:var(--red);}
+.new .rtax{color:var(--green);}
+.rrate{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.rrows{border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;}
+.rrow{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px;}
+.rk{color:var(--muted);}
+.rv{font-family:var(--mono);font-size:11px;color:var(--text);}
+
+/* SAVINGS */
+.savings{background:var(--gold-soft);border:1px solid rgba(245,200,66,0.16);border-radius:12px;
+  padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;}
+.stxt{font-size:13px;color:var(--muted);margin-bottom:3px;}
+.smonth{font-size:11px;color:var(--muted);font-family:var(--mono);}
+.samt{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--gold);white-space:nowrap;}
+
+/* COUPLE ANALYTICS */
+.ca-grid{display:grid;grid-template-columns:1fr 2px 1fr;gap:0;margin-bottom:16px;}
+.ca-col{padding:4px 0;}
+.ca-col:first-child{padding-right:20px;}
+.ca-col:last-child{padding-left:20px;}
+.ca-divider{background:var(--border);border-radius:99px;}
+.ca-head{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.ca-sub{font-size:11px;color:var(--muted);margin-bottom:14px;}
+.ca-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.ca-row{background:var(--bg3);border-radius:8px;padding:10px 12px;}
+.ca-row-label{font-size:11px;color:var(--muted);margin-bottom:6px;font-family:var(--mono);}
+.ca-slab-line{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.ca-slab-line:last-child{border-bottom:none;}
+.ca-slab-name{color:var(--muted);font-family:var(--mono);}
+.ca-slab-tax{color:var(--red);font-family:var(--mono);}
+.ca-row-footer{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.08);}
+.ca-row-eff{font-size:11px;color:var(--muted);}
+.ca-row-total{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--red);}
+.ca-total-row{display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);padding-top:12px;font-size:12px;color:var(--muted);}
+.ca-total{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--text);}
+.ca-verdict{border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;}
+.ca-verdict.ind-wins{background:var(--blue-soft);border:1px solid rgba(91,156,246,0.2);}
+.ca-verdict.couple-wins{background:var(--green-soft);border:1px solid rgba(62,207,142,0.2);}
+.ca-verdict.tied{background:var(--bg3);border:1px solid var(--border);}
+.ca-verdict-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.ind-wins .ca-verdict-title{color:var(--blue);}
+.couple-wins .ca-verdict-title{color:var(--green);}
+.tied .ca-verdict-title{color:var(--muted);}
+.ca-verdict p{color:var(--muted);font-size:12px;}
+.ca-verdict strong{color:var(--text);}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 9px;border-radius:99px;margin:0 2px;}
+.pill-blue{background:rgba(91,156,246,0.15);color:var(--blue);}
+.pill-green{background:rgba(62,207,142,0.15);color:var(--green);}
+
+/* CHART */
+.chart-wrap{position:relative;width:100%;height:240px;margin-bottom:20px;}
+
+/* SLAB TABLE — 5 cols */
+.sthead{display:grid;grid-template-columns:1.9fr 0.7fr 0.7fr 1fr 1fr;gap:6px;padding:0 14px;margin-bottom:6px;}
+.sthead span{font-size:10px;font-family:var(--mono);letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;text-align:right;}
+.sthead span:first-child{text-align:left;}
+.srows{display:flex;flex-direction:column;gap:5px;}
+.sr{background:var(--bg3);border-radius:8px;padding:10px 14px;display:grid;
+  grid-template-columns:1.9fr 0.7fr 0.7fr 1fr 1fr;gap:6px;align-items:center;}
+.sr.active-slab{background:var(--bg2);border:1px solid var(--border2);}
+.sr-range{color:var(--muted);font-family:var(--mono);font-size:10px;}
+.sr-rate{font-family:var(--mono);font-size:12px;font-weight:500;text-align:right;}
+.sr-amt{font-family:var(--mono);font-size:12px;text-align:right;}
+.sr-amt.oa{color:var(--red);}
+.sr-amt.na{color:var(--green);}
+.rate-lower{color:var(--green);}
+.rate-higher{color:var(--red);}
+.rate-same{color:var(--muted);}
+.diff-badge{display:inline-block;font-size:9px;font-family:var(--mono);padding:1px 5px;border-radius:4px;margin-left:3px;vertical-align:middle;}
+.diff-down{background:rgba(62,207,142,0.15);color:var(--green);}
+.diff-up{background:rgba(224,92,92,0.15);color:var(--red);}
+
+/* TAKE HOME */
+.th-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.thc{background:var(--bg3);border-radius:10px;padding:14px 12px;text-align:center;}
+.thl{font-size:10px;font-family:var(--mono);color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;}
+.thv{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--text);}
+
+/* FY LEGEND */
+.fy-legend{display:flex;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+.fy-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.fy-dot{width:9px;height:9px;border-radius:2px;display:inline-block;flex-shrink:0;}
+
+/* SLAB REFERENCE */
+.slab-ref{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:6px;margin-top:14px;}
+.slab-ref-item{background:var(--bg3);border-radius:8px;padding:10px 12px;}
+.slab-ref-range{font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:4px;}
+.slab-ref-rates{display:flex;justify-content:space-between;align-items:center;}
+.slab-ref-old{font-family:var(--mono);font-size:13px;color:var(--red);}
+.slab-ref-new{font-family:var(--mono);font-size:13px;color:var(--green);}
+.slab-ref-arrow{font-size:11px;color:var(--muted);}
+
+/* NOTE */
+.note{background:rgba(240,150,42,0.07);border:1px solid rgba(240,150,42,0.2);border-radius:10px;padding:12px 14px;margin-top:14px;}
+.note p{font-size:12px;color:var(--muted);line-height:1.6;}
+.note strong{color:var(--amber);}
+
+@media(max-width:600px){
+  .regime-grid,.ca-grid{grid-template-columns:1fr;}
+  .ca-divider{display:none;}
+  .ca-col:first-child,.ca-col:last-child{padding:0;}
+  .th-grid{grid-template-columns:1fr 1fr;}
+  .couple-grid{grid-template-columns:1fr;}
+  .sthead,.sr{grid-template-columns:1.5fr 0.6fr 0.6fr 0.9fr 0.9fr;}
+  .income-badge{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div style="display:flex;justify-content:center;margin-bottom:14px;">
+      <div style="display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px;gap:3px;">
+        <button onclick="setLang('en')" id="lang-en"
+          style="font-family:var(--mono);font-size:11px;padding:5px 14px;border-radius:6px;border:none;cursor:pointer;
+          background:var(--text);color:var(--bg);font-weight:600;">EN</button>
+        <button onclick="setLang('ne')" id="lang-ne"
+          style="font-family:var(--mono);font-size:11px;padding:5px 14px;border-radius:6px;border:none;cursor:pointer;
+          background:transparent;color:var(--muted);font-weight:600;">नेपाली</button>
+      </div>
+    </div>
+    <div class="eyebrow" data-en="IRD Nepal · FY 2082/83 (old) vs FY 2083/84 (new) · Up to Rs. 2 Crore"
+         data-ne="राजस्व विभाग · FY २०८२/८३ (पुरानो) vs FY २०८३/८४ (नयाँ) · रु. २ करोडसम्म">
+      IRD Nepal · FY 2082/83 (old) vs FY 2083/84 (new) · Up to Rs. 2 Crore</div>
+    <h1>🇳🇵 <span data-en="Nepal Tax Calculator" data-ne="नेपाल आयकर क्याल्कुलेटर">Nepal Tax Calculator</span></h1>
+    <p data-en="Old regime vs new budget · Individual & couple filing · Which saves more?"
+       data-ne="पुरानो र नयाँ बजेट तुलना · एकल र दम्पती कर · कुन फाइदाजनक?">
+      Old regime vs new budget · Individual &amp; couple filing · Which saves more?</p>
+  </div>
+
+  <!-- INPUT -->
+  <div class="card">
+    <div class="clabel" data-en="01 — Filing status" data-ne="०१ — दर्ता स्थिति">01 — Filing status</div>
+    <div class="toggle-row">
+      <button class="tbtn active" id="btn-i" onclick="setMode('individual')"
+        data-en="🧑 Individual" data-ne="🧑 एकल">🧑 Individual</button>
+      <button class="tbtn" id="btn-c" onclick="setMode('couple')"
+        data-en="👫 Couple" data-ne="👫 दम्पती">👫 Couple</button>
+    </div>
+
+    <!-- INDIVIDUAL -->
+    <div id="ind-section">
+      <div class="clabel" data-en="02 — Annual gross income" data-ne="०२ — वार्षिक कुल आय">02 — Annual gross income</div>
+      <div class="income-row">
+        <div class="income-prefix">Rs.</div>
+        <input type="number" class="income-field" id="ind-input"
+          data-en-placeholder="Enter annual income" data-ne-placeholder="वार्षिक आय लेख्नुहोस्"
+          placeholder="Enter annual income"
+          value="500000" min="0" max="20000000" oninput="onIndInput(this.value)">
+        <div class="income-badge" id="ind-badge">Rs. 5L</div>
+      </div>
+      <input type="range" id="slider" min="0" max="20000000" step="50000" value="500000" oninput="onSlider(this.value)">
+      <div class="ticks">
+        <span class="tick">0</span><span class="tick">50L</span><span class="tick">1Cr</span>
+        <span class="tick">1.5Cr</span><span class="tick">2Cr</span>
+      </div>
+    </div>
+
+    <!-- COUPLE -->
+    <div id="couple-section" style="display:none;">
+      <div class="clabel" data-en="02 — Each partner's annual income" data-ne="०२ — प्रत्येक साथीको वार्षिक आय">02 — Each partner's annual income</div>
+      <div class="couple-grid">
+        <div class="ig">
+          <label data-en="Partner 1 annual income (Rs.)" data-ne="साथी १ को वार्षिक आय (रु.)">Partner 1 annual income (Rs.)</label>
+          <input type="number" id="p1" placeholder="e.g. 1200000" oninput="onPartner()">
+          <div class="partner-hint" id="p1-hint">—</div>
+        </div>
+        <div class="ig">
+          <label data-en="Partner 2 annual income (Rs.)" data-ne="साथी २ को वार्षिक आय (रु.)">Partner 2 annual income (Rs.)</label>
+          <input type="number" id="p2" placeholder="e.g. 800000" oninput="onPartner()">
+          <div class="partner-hint" id="p2-hint">—</div>
+        </div>
+      </div>
+      <div class="combined-row">
+        <span data-en="Combined annual income" data-ne="संयुक्त वार्षिक आय">Combined annual income</span>
+        <span id="combined-val" style="color:var(--text);font-family:var(--mono);font-weight:500;">Rs. 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUPLE ANALYTICS -->
+  <div class="card" id="couple-analytics" style="display:none;">
+    <div class="clabel" data-en="👫 Should you file individually or jointly?" data-ne="👫 छुट्टाछुट्टै वा संयुक्त कर तिर्ने?">👫 Should you file individually or jointly?</div>
+    <div class="new-fy-notice">
+      <strong>Left:</strong> Each partner files separately under <strong>new FY 2083/84 slabs</strong> (10L@1%). &nbsp;|&nbsp; <strong>Right:</strong> Combined income also under <strong>new FY 2083/84 slabs</strong> — same rates, but combined income may push into higher slabs.
+    </div>
+    <div class="ca-grid">
+      <div class="ca-col">
+        <div class="ca-head">File separately (new FY 2083/84)</div>
+        <div class="ca-sub">Each pays on own income · new slabs (10L@1%, same for everyone)</div>
+        <div class="ca-rows" id="ca-ind-rows"></div>
+        <div class="ca-total-row">
+          <span>Combined total tax</span>
+          <span class="ca-total" id="ca-ind-total">—</span>
+        </div>
+      </div>
+      <div class="ca-divider"></div>
+      <div class="ca-col">
+        <div class="ca-head">File jointly (new FY 2083/84)</div>
+        <div class="ca-sub">Combined income · new slabs (10L@1%, same for everyone)</div>
+        <div class="ca-rows" id="ca-couple-rows"></div>
+        <div class="ca-total-row">
+          <span>New regime total tax</span>
+          <span class="ca-total" id="ca-couple-total">—</span>
+        </div>
+      </div>
+    </div>
+    <div class="ca-verdict" id="ca-verdict">
+      <div class="ca-verdict-title" id="ca-verdict-title">Enter both incomes to see recommendation</div>
+      <p id="ca-verdict-body">—</p>
+    </div>
+  </div>
+
+  <!-- OLD vs NEW REGIME -->
+  <div class="regime-grid">
+    <div class="rc old" id="old-card">
+      <div class="wbadge">✦ LOWER TAX</div>
+      <div class="rname" data-en="Old Regime" data-ne="पुरानो व्यवस्था">Old Regime</div>
+      <div class="fy-tag">FY 2082/83</div>
+      <div class="rtax" id="old-tax">Rs. 0</div>
+      <div class="rrate" id="old-rate">Effective rate: 0.00%</div>
+      <div class="rrows">
+        <div class="rrow"><span class="rk" data-en="Annual tax" data-ne="वार्षिक कर" data-en="Annual tax" data-ne="वार्षिक कर">Annual tax</span><span class="rv" id="old-a">—</span></div>
+        <div class="rrow"><span class="rk" data-en="Monthly tax" data-ne="मासिक कर" data-en="Monthly tax" data-ne="मासिक कर">Monthly tax</span><span class="rv" id="old-m">—</span></div>
+        <div class="rrow"><span class="rk" data-en="Net take-home" data-ne="खुद घरपुग्ने रकम" data-en="Net take-home" data-ne="खुद घरपुग्ने">Net take-home</span><span class="rv" id="old-net">—</span></div>
+      </div>
+    </div>
+    <div class="rc new" id="new-card">
+      <div class="wbadge">✦ LOWER TAX</div>
+      <div class="rname" data-en="New Regime" data-ne="नयाँ व्यवस्था">New Regime</div>
+      <div class="fy-tag">FY 2083/84</div>
+      <div class="rtax" id="new-tax">Rs. 0</div>
+      <div class="rrate" id="new-rate">Effective rate: 0.00%</div>
+      <div class="rrows">
+        <div class="rrow"><span class="rk" data-en="Annual tax" data-ne="वार्षिक कर" data-en="Annual tax" data-ne="वार्षिक कर">Annual tax</span><span class="rv" id="new-a">—</span></div>
+        <div class="rrow"><span class="rk" data-en="Monthly tax" data-ne="मासिक कर" data-en="Monthly tax" data-ne="मासिक कर">Monthly tax</span><span class="rv" id="new-m">—</span></div>
+        <div class="rrow"><span class="rk" data-en="Net take-home" data-ne="खुद घरपुग्ने रकम" data-en="Net take-home" data-ne="खुद घरपुग्ने">Net take-home</span><span class="rv" id="new-net">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="savings">
+    <div>
+      <div class="stxt" id="slabel">Enter income to see comparison</div>
+      <div class="smonth" id="smonth">—</div>
+    </div>
+    <div class="samt" id="samt">Rs. 0</div>
+  </div>
+
+  <!-- SLAB BREAKDOWN -->
+  <div class="card">
+    <div class="clabel" data-en="03 — Slab-by-slab breakdown" data-ne="०३ — स्ल्याब अनुसार विवरण">03 — Slab-by-slab breakdown</div>
+    <div class="fy-legend">
+      <div class="fy-item"><span class="fy-dot" style="background:var(--red);"></span><span data-en="Old (FY 2082/83)" data-ne="पुरानो (FY २०८२/८३)">Old (FY 2082/83)</span></div>
+      <div class="fy-item"><span class="fy-dot" style="background:var(--green);"></span><span data-en="New (FY 2083/84)" data-ne="नयाँ (FY २०८३/८४)">New (FY 2083/84)</span></div>
+      <div class="fy-item"><span class="fy-dot" style="background:rgba(255,255,255,0.18);border:1px solid var(--border2);"></span><span data-en="Active slab" data-ne="सक्रिय स्ल्याब">Active slab</span></div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chart" role="img" aria-label="Tax per slab comparison old vs new regime">Slab chart</canvas>
+    </div>
+    <div class="sthead">
+      <span style="text-align:left;">Slab</span>
+      <span>Old rate</span><span>New rate</span><span>Old tax</span><span>New tax</span>
+    </div>
+    <div class="srows" id="slab-rows"></div>
+
+    <!-- SLAB REFERENCE TABLE -->
+    <div style="margin-top:20px;">
+      <div class="clabel" style="margin-bottom:10px;">Full rate reference — <span id="ref-mode-label">individual</span></div>
+      <div class="slab-ref" id="slab-ref"></div>
+    </div>
+
+    <div class="note" style="margin-top:14px;">
+      <p data-en="New FY 2083/84 changes: First slab jumps from 5L → 10L (1% on double the income). Top rate drops from 39% → 29%. New 27% slab replaces 30% and 36%. Couple distinction removed — same slabs for everyone. Net result: significant tax cuts for most income levels."
+         data-ne="नयाँ FY २०८३/८४ परिवर्तन: पहिलो स्ल्याब ५ लाखबाट १० लाख पुग्यो (दोब्बर आयमा १%)। उच्चतम दर ३९% बाट २९% मा झर्यो। नयाँ २७% स्ल्याबले ३०% र ३६% लाई प्रतिस्थापन गर्यो। दम्पती र एकलको भेद हटाइयो। नतिजा: अधिकांशका लागि उल्लेखनीय कर कटौती।">
+        <strong data-en="New FY 2083/84 changes:" data-ne="नयाँ FY २०८३/८४ परिवर्तन:">New FY 2083/84 changes:</strong>
+        <span data-en=" First slab jumps from 5L → 10L (1% on double the income). Top rate drops from 39% → 29%. New 27% slab replaces 30% and 36%. Couple distinction removed — same slabs for everyone. Net result: "
+              data-ne=" पहिलो स्ल्याब ५ लाखबाट १० लाख पुग्यो। उच्चतम दर ३९%→२९%। दम्पती भेद हटाइयो। नतिजा: ">
+          First slab jumps from 5L → 10L (1% on double the income). Top rate drops from 39% → 29%. New 27% slab replaces 30% and 36%. Couple distinction removed — same slabs for everyone. Net result: </span>
+        <strong data-en="significant tax cuts for most income levels." data-ne="अधिकांशका लागि उल्लेखनीय कर कटौती।">significant tax cuts for most income levels.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- TAKE HOME -->
+  <div class="card">
+    <div class="clabel" data-en="04 — Take-home summary (best regime)" data-ne="०४ — घर लैजाने रकम सारांश">04 — Take-home summary (best regime)</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px;">
+      <span data-en="Best regime:" data-ne="उत्तम व्यवस्था:">Best regime:</span> <span id="best-name" style="color:var(--gold);font-weight:600;">—</span>
+      &nbsp;·&nbsp; <span data-en="You save:" data-ne="बचत:">You save:</span> <span id="best-save" style="color:var(--gold);font-family:var(--mono);">Rs. 0</span> per year
+    </div>
+    <div class="th-grid">
+      <div class="thc"><div class="thl" data-en="Gross annual" data-ne="कुल वार्षिक">Gross annual</div><div class="thv" id="th-g">—</div></div>
+      <div class="thc"><div class="thl" data-en="Tax (best)" data-ne="कर (उत्तम)">Tax (best)</div><div class="thv" id="th-t" style="color:var(--red);">—</div></div>
+      <div class="thc"><div class="thl" data-en="Net annual" data-ne="खुद वार्षिक">Net annual</div><div class="thv" id="th-n" style="color:var(--green);">—</div></div>
+      <div class="thc"><div class="thl" data-en="Monthly gross" data-ne="मासिक कुल">Monthly gross</div><div class="thv" id="th-mg">—</div></div>
+      <div class="thc"><div class="thl" data-en="Monthly tax" data-ne="मासिक कर">Monthly tax</div><div class="thv" id="th-mt" style="color:var(--red);">—</div></div>
+      <div class="thc"><div class="thl" data-en="Monthly net" data-ne="मासिक खुद">Monthly net</div><div class="thv" id="th-mn" style="color:var(--green);">—</div></div>
+    </div>
+  </div>
+
+</div>
+<script>
+let mode = 'individual';
+let income = 500000;
+let myChart = null;
+
+// ══════════════════════════════════════════════
+// CORRECT SLAB DATA per user-provided table
+// ══════════════════════════════════════════════
+//
+// OLD FY 2082/83 — INDIVIDUAL:
+//   0–5L @1%, 5–7L @10%, 7–10L @20%, 10–20L @30%, 20–50L @36%, >50L @39%
+// OLD FY 2082/83 — COUPLE:
+//   0–6L @1%, 6–8L @10%, 8–11L @20%, 11–20L @30%, 20–50L @36%, >50L @39%
+//
+// NEW FY 2083/84 — SAME FOR EVERYONE (couple distinction removed):
+//   0–10L @1%, 10–15L @10%, 15–25L @20%, 25–40L @27%, >40L @29%
+// ══════════════════════════════════════════════
+
+const OLD_INDIVIDUAL = [
+  { label:'Up to Rs. 5L',   min:0,        max:500000,   rate:0.01 },
+  { label:'Rs. 5L – 7L',    min:500000,   max:700000,   rate:0.10 },
+  { label:'Rs. 7L – 10L',   min:700000,   max:1000000,  rate:0.20 },
+  { label:'Rs. 10L – 20L',  min:1000000,  max:2000000,  rate:0.30 },
+  { label:'Rs. 20L – 50L',  min:2000000,  max:5000000,  rate:0.36 },
+  { label:'Rs. 50L – 1Cr',  min:5000000,  max:10000000, rate:0.39 },
+  { label:'Rs. 1Cr – 2Cr',  min:10000000, max:20000000, rate:0.39 },
+  { label:'Above Rs. 2Cr',  min:20000000, max:Infinity, rate:0.39 },
+];
+
+const OLD_COUPLE = [
+  { label:'Up to Rs. 6L',   min:0,        max:600000,   rate:0.01 },
+  { label:'Rs. 6L – 8L',    min:600000,   max:800000,   rate:0.10 },
+  { label:'Rs. 8L – 11L',   min:800000,   max:1100000,  rate:0.20 },
+  { label:'Rs. 11L – 20L',  min:1100000,  max:2000000,  rate:0.30 },
+  { label:'Rs. 20L – 50L',  min:2000000,  max:5000000,  rate:0.36 },
+  { label:'Rs. 50L – 1Cr',  min:5000000,  max:10000000, rate:0.39 },
+  { label:'Rs. 1Cr – 2Cr',  min:10000000, max:20000000, rate:0.39 },
+  { label:'Above Rs. 2Cr',  min:20000000, max:Infinity, rate:0.39 },
+];
+
+// New FY 2083/84 — same slabs for everyone
+const NEW_SLABS = [
+  { label:'Up to Rs. 10L',  min:0,        max:1000000,  rate:0.01 },
+  { label:'Rs. 10L – 15L',  min:1000000,  max:1500000,  rate:0.10 },
+  { label:'Rs. 15L – 25L',  min:1500000,  max:2500000,  rate:0.20 },
+  { label:'Rs. 25L – 40L',  min:2500000,  max:4000000,  rate:0.27 },
+  { label:'Above Rs. 40L',  min:4000000,  max:Infinity, rate:0.29 },
+];
+
+// Build unified comparison slabs (match old slab ranges to new for display)
+// We'll show old and new in same rows based on income range overlap
+function getCompareSlabs(isCouple) {
+  const OLD = isCouple ? OLD_COUPLE : OLD_INDIVIDUAL;
+  // Collect all unique breakpoints
+  const breakpoints = new Set([0]);
+  OLD.forEach(s => { if(s.max !== Infinity) breakpoints.add(s.max); });
+  NEW_SLABS.forEach(s => { if(s.max !== Infinity) breakpoints.add(s.max); });
+  const pts = Array.from(breakpoints).sort((a,b)=>a-b);
+  pts.push(Infinity);
+
+  const rows = [];
+  for(let i=0; i<pts.length-1; i++){
+    const lo = pts[i], hi = pts[i+1];
+    const oldSlab = OLD.find(s => s.min <= lo && (s.max === Infinity || s.max >= hi));
+    const newSlab = NEW_SLABS.find(s => s.min <= lo && (s.max === Infinity || s.max >= hi));
+    if(!oldSlab && !newSlab) continue;
+    const label = hi === Infinity
+      ? `Above ${fmtLabel(lo)}`
+      : `${fmtLabel(lo)} – ${fmtLabel(hi)}`;
+    rows.push({ label, min:lo, max:hi, oldR: oldSlab?.rate||0, newR: newSlab?.rate||0 });
+  }
+  return rows;
+}
+
+function fmtLabel(n){
+  if(n===0) return 'Rs. 0';
+  if(n>=10000000) return 'Rs.'+(n/10000000)+'Cr';
+  return 'Rs.'+(n/100000)+'L';
+}
+
+function calcTaxFromSlabs(inc, slabs) {
+  let total=0, taxes=[];
+  for(let s of slabs){
+    const cap = s.max===Infinity ? Math.max(inc-s.min,0) : s.max-s.min;
+    const taxable = Math.min(Math.max(inc-s.min,0), cap);
+    // Use integer arithmetic to avoid float issues (e.g. 0.29 * x = 28.9999...)
+    // Multiply rate by 100, compute, then divide and round
+    const tax = Math.round((taxable * Math.round(s.rate * 10000)) / 10000);
+    taxes.push(tax); total+=tax;
+  }
+  return {total, taxes};
+}
+
+const fi = n => 'Rs. '+Math.round(n).toLocaleString('en-IN');
+const pct = (t,i) => i>0 ? ((t/i)*100).toFixed(2)+'%' : '0.00%';
+const r2p = r => Math.round(r*100)+'%';
+function fmtInc(n){
+  if(!n) return 'Rs. 0';
+  if(n>=10000000) return 'Rs. '+(n/10000000).toFixed(2).replace(/\.?0+$/,'')+'Cr';
+  if(n>=100000)   return 'Rs. '+(n/100000).toFixed(2).replace(/\.?0+$/,'')+'L';
+  return 'Rs. '+Math.round(n).toLocaleString('en-IN');
+}
+
+function setMode(m){
+  mode=m;
+  document.getElementById('btn-i').classList.toggle('active',m==='individual');
+  document.getElementById('btn-c').classList.toggle('active',m==='couple');
+  document.getElementById('ind-section').style.display    = m==='individual'?'':'none';
+  document.getElementById('couple-section').style.display = m==='couple'?'':'none';
+  document.getElementById('couple-analytics').style.display = m==='couple'?'':'none';
+  if(m==='couple') onPartner();
+  else { income=parseInt(document.getElementById('slider').value); recalc(); }
+}
+
+function onIndInput(val){
+  const v=Math.min(parseInt(val)||0,20000000);
+  income=v;
+  document.getElementById('slider').value=v;
+  document.getElementById('ind-badge').textContent=fmtInc(v);
+  recalc();
+}
+function onSlider(val){
+  const v=parseInt(val);
+  income=v;
+  document.getElementById('ind-input').value=v;
+  document.getElementById('ind-badge').textContent=fmtInc(v);
+  recalc();
+}
+
+function onPartner(){
+  const p1=parseFloat(document.getElementById('p1').value)||0;
+  const p2=parseFloat(document.getElementById('p2').value)||0;
+  income=p1+p2;
+  document.getElementById('p1-hint').textContent=p1?fmtInc(p1):'—';
+  document.getElementById('p2-hint').textContent=p2?fmtInc(p2):'—';
+  document.getElementById('combined-val').textContent=fmtInc(income);
+  recalcCoupleAnalytics(p1,p2);
+  recalc();
+}
+
+function partnerSlabBreakdown(inc, slabs){
+  return slabs.filter(s=>inc>s.min).map(s=>{
+    const cap=s.max===Infinity?Math.max(inc-s.min,0):s.max-s.min;
+    const taxable=Math.min(Math.max(inc-s.min,0),cap);
+    const tax=Math.round(taxable*s.rate);
+    if(!tax) return '';
+    return `<div class="ca-slab-line">
+      <span class="ca-slab-name">${s.label} @${r2p(s.rate)}</span>
+      <span class="ca-slab-tax">${fi(tax)}</span>
+    </div>`;
+  }).join('');
+}
+
+function recalcCoupleAnalytics(p1,p2){
+  if(!p1&&!p2){
+    document.getElementById('ca-verdict-title').textContent='Enter both incomes above';
+    document.getElementById('ca-verdict-body').textContent='—';
+    document.getElementById('ca-ind-rows').innerHTML='';
+    document.getElementById('ca-couple-rows').innerHTML='';
+    document.getElementById('ca-ind-total').textContent='—';
+    document.getElementById('ca-couple-total').textContent='—';
+    return;
+  }
+  // Separate filing — each uses NEW FY 2083/84 slabs
+  const t1=calcTaxFromSlabs(p1, NEW_SLABS);
+  const t2=calcTaxFromSlabs(p2, NEW_SLABS);
+  const totalSep=t1.total+t2.total;
+
+  // Joint filing — NEW FY 2083/84 slabs (same for everyone, no couple distinction)
+  const combined=p1+p2;
+  const tJoint=calcTaxFromSlabs(combined, NEW_SLABS);
+  const totalJoint=tJoint.total;
+
+  document.getElementById('ca-ind-rows').innerHTML=`
+    <div class="ca-row">
+      <div class="ca-row-label">Partner 1 — ${fmtInc(p1)} · new FY 2083/84 slabs</div>
+      ${partnerSlabBreakdown(p1, NEW_SLABS)}
+      <div class="ca-row-footer">
+        <span class="ca-row-eff">effective ${pct(t1.total,p1)}</span>
+        <span class="ca-row-total">${fi(t1.total)}</span>
+      </div>
+    </div>
+    <div class="ca-row">
+      <div class="ca-row-label">Partner 2 — ${fmtInc(p2)} · new FY 2083/84 slabs</div>
+      ${partnerSlabBreakdown(p2, NEW_SLABS)}
+      <div class="ca-row-footer">
+        <span class="ca-row-eff">effective ${pct(t2.total,p2)}</span>
+        <span class="ca-row-total">${fi(t2.total)}</span>
+      </div>
+    </div>`;
+
+  const jointBreakdown = NEW_SLABS.filter(s=>combined>s.min).map(s=>{
+    const cap=s.max===Infinity?Math.max(combined-s.min,0):s.max-s.min;
+    const taxable=Math.min(Math.max(combined-s.min,0),cap);
+    const tax=Math.round(taxable*s.rate);
+    if(!tax) return '';
+    return `<div class="ca-slab-line">
+      <span class="ca-slab-name">${s.label} @${r2p(s.rate)}</span>
+      <span class="ca-slab-tax">${fi(tax)}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('ca-couple-rows').innerHTML=`
+    <div class="ca-row">
+      <div class="ca-row-label">Combined — ${fmtInc(combined)} · new FY 2083/84 slabs (10L@1%, 15L@10%…)</div>
+      ${jointBreakdown}
+      <div class="ca-row-footer">
+        <span class="ca-row-eff">effective ${pct(tJoint.total,combined)}</span>
+        <span class="ca-row-total">${fi(tJoint.total)}</span>
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--green);padding:8px 4px;">✦ New regime: no couple/individual distinction — same slabs for everyone</div>`;
+
+  document.getElementById('ca-ind-total').textContent=fi(totalSep);
+  document.getElementById('ca-couple-total').textContent=fi(totalJoint);
+
+  const diff=Math.abs(totalSep-totalJoint);
+  const verdict=document.getElementById('ca-verdict');
+  verdict.className='ca-verdict';
+
+  if(totalSep<totalJoint){
+    verdict.classList.add('ind-wins');
+    document.getElementById('ca-verdict-title').textContent='✦ File separately — saves more';
+    document.getElementById('ca-verdict-body').innerHTML=`Filing as <strong>two individuals</strong> saves <span class="pill pill-blue">${fi(diff)}/year</span> · <span class="pill pill-blue">${fi(diff/12)}/month</span>. This usually happens when both partners earn similar incomes — combining them pushes the total into higher slabs faster than the couple's 1L extra threshold can offset.`;
+  } else if(totalJoint<totalSep){
+    verdict.classList.add('couple-wins');
+    document.getElementById('ca-verdict-title').textContent='✦ File as couple — saves more';
+    document.getElementById('ca-verdict-body').innerHTML=`Filing <strong>as a couple</strong> saves <span class="pill pill-green">${fi(diff)}/year</span> · <span class="pill pill-green">${fi(diff/12)}/month</span>. This typically happens when incomes are unequal — the lower earner benefits from the wider first slab (6L vs 5L) and the income gets split more efficiently.`;
+  } else {
+    verdict.classList.add('tied');
+    document.getElementById('ca-verdict-title').textContent='Equal either way';
+    document.getElementById('ca-verdict-body').innerHTML='Both filing methods result in the same total tax. Choose whichever is simpler.';
+  }
+}
+
+function recalc(){
+  const isCouple = mode==='couple';
+  const OLD = isCouple ? OLD_COUPLE : OLD_INDIVIDUAL;
+  const oldResult = calcTaxFromSlabs(income, OLD);
+  const newResult = calcTaxFromSlabs(income, NEW_SLABS);
+
+  const oldWins = oldResult.total < newResult.total;
+  const newWins = newResult.total < oldResult.total;
+  const diff = Math.abs(oldResult.total - newResult.total);
+  const winnerName = oldWins?'Old Regime (FY 2082/83)':newWins?'New Regime (FY 2083/84)':'Equal';
+
+  document.getElementById('old-card').classList.toggle('winner',oldWins);
+  document.getElementById('new-card').classList.toggle('winner',newWins);
+  document.getElementById('old-tax').textContent=fi(oldResult.total);
+  document.getElementById('new-tax').textContent=fi(newResult.total);
+  document.getElementById('old-rate').textContent='Effective: '+pct(oldResult.total,income);
+  document.getElementById('new-rate').textContent='Effective: '+pct(newResult.total,income);
+  document.getElementById('old-a').textContent=fi(oldResult.total);
+  document.getElementById('new-a').textContent=fi(newResult.total);
+  document.getElementById('old-m').textContent=fi(oldResult.total/12);
+  document.getElementById('new-m').textContent=fi(newResult.total/12);
+  document.getElementById('old-net').textContent=fi(income-oldResult.total);
+  document.getElementById('new-net').textContent=fi(income-newResult.total);
+
+  const savingSign = newWins?'saves':'costs extra';
+  document.getElementById('slabel').textContent=diff===0
+    ? 'Both regimes give the same result'
+    : `New regime ${savingSign} Rs. ${Math.round(diff).toLocaleString('en-IN')} vs old regime`;
+  document.getElementById('smonth').textContent=diff===0?'No difference'
+    :`Rs. ${Math.round(diff/12).toLocaleString('en-IN')} / month ${newWins?'saved':'extra'}`;
+  document.getElementById('samt').textContent=fi(diff);
+
+  const bestTax=Math.min(oldResult.total,newResult.total);
+  document.getElementById('best-name').textContent=winnerName;
+  document.getElementById('best-save').textContent=fi(diff);
+  document.getElementById('th-g').textContent=fmtInc(income);
+  document.getElementById('th-t').textContent=fi(bestTax);
+  document.getElementById('th-n').textContent=fi(income-bestTax);
+  document.getElementById('th-mg').textContent=fi(income/12);
+  document.getElementById('th-mt').textContent=fi(bestTax/12);
+  document.getElementById('th-mn').textContent=fi((income-bestTax)/12);
+
+  // Slab reference
+  document.getElementById('ref-mode-label').textContent=isCouple?'couple (old FY 2082/83 joint, 6L threshold)':'individual';
+  const refEl=document.getElementById('slab-ref');
+  const allSlabs=isCouple?OLD_COUPLE:OLD_INDIVIDUAL;
+  // Show old vs new rate for each conceptual range
+  const ranges=[
+    {label:'0–5L / 0–10L',  oldR:isCouple?null:0.01, newR:0.01, note:isCouple?'6L threshold':''},
+    {label:'Up to 6L',       oldR:isCouple?0.01:null,  newR:null, note:'Couple only (old)'},
+    {label:'10L–15L',        oldR:null,                newR:0.10, note:'New only'},
+    {label:'5–7L / 6–8L',   oldR:isCouple?0.10:0.10,  newR:null},
+    {label:'7–10L / 8–11L', oldR:isCouple?0.20:0.20,  newR:null},
+    {label:'15–25L',         oldR:null,                newR:0.20, note:'New only'},
+    {label:'10–20L / 11–20L',oldR:isCouple?0.30:0.30, newR:null},
+    {label:'25–40L',         oldR:null,                newR:0.27, note:'New — replaces 30%+36%'},
+    {label:'20–50L',         oldR:0.36,                newR:null},
+    {label:'Above 40L',      oldR:null,                newR:0.29, note:'New — replaces 39%'},
+    {label:'Above 50L',      oldR:0.39,                newR:null},
+  ];
+
+  // Simpler: just show old slabs with new equivalent
+  const RATE_COL={0.01:'#7a7d85',0.10:'#5b9cf6',0.20:'#f0962a',0.27:'#c89b3c',0.29:'#a07030',0.30:'#e05c5c',0.36:'#c43030',0.39:'#a01818'};
+  refEl.innerHTML=(isCouple?OLD_COUPLE:OLD_INDIVIDUAL).map(s=>{
+    const equiv=NEW_SLABS.find(ns=>ns.min<=(s.min+s.max)/2&&(ns.max===Infinity||(s.max!==Infinity&&ns.max>=(s.min+s.max)/2)));
+    const oldCol=RATE_COL[s.rate]||'#aaa';
+    const newCol=equiv?RATE_COL[equiv.rate]||'#aaa':'#555';
+    return `<div class="slab-ref-item">
+      <div class="slab-ref-range">${s.label}</div>
+      <div class="slab-ref-rates">
+        <span class="slab-ref-old" style="color:${oldCol};">${r2p(s.rate)}</span>
+        <span class="slab-ref-arrow">→</span>
+        <span class="slab-ref-new" style="color:${newCol};">${equiv?r2p(equiv.rate):'n/a'}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Build comparison rows
+  const compareSlabs=getCompareSlabs(isCouple);
+  const rows=compareSlabs.map(s=>{
+    const active=income>s.min;
+    const changed=s.oldR!==s.newR;
+    let diffBadge='';
+    if(changed){
+      const delta=((s.newR-s.oldR)*100).toFixed(0);
+      diffBadge=`<span class="diff-badge ${delta<0?'diff-down':'diff-up'}">${delta<0?'▼':'▲'}${Math.abs(delta)}%</span>`;
+    }
+    // calc tax for this sub-range
+    const lo=s.min,hi=s.max===Infinity?income:Math.min(s.max,income);
+    const taxable=Math.max(hi-lo,0);
+    const oldTax=Math.round(taxable*s.oldR);
+    const newTax=Math.round(taxable*s.newR);
+    return `<div class="sr${active?' active-slab':''}">
+      <div class="sr-range">${s.label}</div>
+      <div class="sr-rate ${changed?'rate-higher':'rate-same'}">${r2p(s.oldR)}</div>
+      <div class="sr-rate ${changed?'rate-lower':'rate-same'}">${r2p(s.newR)}${diffBadge}</div>
+      <div class="sr-amt oa">${active&&oldTax?fi(oldTax):'—'}</div>
+      <div class="sr-amt na">${active&&newTax?fi(newTax):'—'}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('slab-rows').innerHTML=rows;
+
+  // Chart — active slabs only
+  const active=compareSlabs.filter(s=>income>s.min);
+  const labels=active.map(s=>s.label.replace('Rs.','').trim().replace(/\s–\s/,'–'));
+  const oldVals=active.map(s=>{
+    const hi=s.max===Infinity?income:Math.min(s.max,income);
+    return Math.round(Math.max(hi-s.min,0)*s.oldR);
+  });
+  const newVals=active.map(s=>{
+    const hi=s.max===Infinity?income:Math.min(s.max,income);
+    return Math.round(Math.max(hi-s.min,0)*s.newR);
+  });
+  buildChart(labels,oldVals,newVals);
+}
+
+function buildChart(labels,oldD,newD){
+  if(myChart) myChart.destroy();
+  myChart=new Chart(document.getElementById('chart'),{
+    type:'bar',
+    data:{labels,datasets:[
+      {label:'Old (2082/83)',data:oldD,backgroundColor:'rgba(224,92,92,0.75)',borderColor:'#e05c5c',borderWidth:1,borderRadius:5},
+      {label:'New (2083/84)',data:newD,backgroundColor:'rgba(62,207,142,0.75)',borderColor:'#3ecf8e',borderWidth:1,borderRadius:5},
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' Rs. '+Math.round(ctx.raw).toLocaleString('en-IN')}}},
+      scales:{
+        x:{ticks:{color:'#7a7d85',font:{family:"'DM Mono'",size:10},maxRotation:30,autoSkip:false},
+           grid:{color:'rgba(255,255,255,0.04)'},border:{color:'rgba(255,255,255,0.06)'}},
+        y:{ticks:{color:'#7a7d85',font:{family:"'DM Mono'",size:10},
+           callback:v=>v>=10000000?(v/10000000).toFixed(1)+'Cr':v>=100000?(v/100000).toFixed(1)+'L':v>=1000?(v/1000)+'k':v},
+           grid:{color:'rgba(255,255,255,0.04)'},border:{color:'rgba(255,255,255,0.06)'}}
+      }
+    }
+  });
+}
+
+recalc();
+
+// ── BILINGUAL ──
+const LANG = { current: 'en' };
+function setLang(lang) {
+  LANG.current = lang;
+  // Toggle button styles
+  const enBtn = document.getElementById('lang-en');
+  const neBtn = document.getElementById('lang-ne');
+  if(lang==='en'){
+    enBtn.style.background='var(--text)'; enBtn.style.color='var(--bg)';
+    neBtn.style.background='transparent'; neBtn.style.color='var(--muted)';
+    document.documentElement.lang='en';
+  } else {
+    neBtn.style.background='var(--text)'; neBtn.style.color='var(--bg)';
+    enBtn.style.background='transparent'; enBtn.style.color='var(--muted)';
+    document.documentElement.lang='ne';
+  }
+  // Translate all data-en / data-ne elements
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const txt = el.getAttribute('data-'+lang);
+    if(txt) el.textContent = txt;
+  });
+  // Translate placeholders
+  document.querySelectorAll('[data-en-placeholder]').forEach(el => {
+    el.placeholder = el.getAttribute('data-'+lang+'-placeholder') || el.placeholder;
+  });
+}
+</script>
+</body>
+</html>
