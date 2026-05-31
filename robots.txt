@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://yourusername.github.io/nepal-tax-calculator/sitemap.xml
+Sitemap: https://nepal-tax-calculator-nine.vercel.app/sitemap.xml

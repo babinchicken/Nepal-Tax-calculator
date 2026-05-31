@@ -2,7 +2,7 @@
 
 Free Nepal income tax calculator comparing **FY 2082/83 (old)** vs **FY 2083/84 (new budget)** slabs.
 
-**Live site:** https://yourusername.github.io/nepal-tax-calculator/
+**Live site:** https://nepal-tax-calculator-nine.vercel.app/
 
 ## Features
 - Old vs new regime comparison (FY 2082/83 vs 2083/84)
@@ -12,12 +12,8 @@ Free Nepal income tax calculator comparing **FY 2082/83 (old)** vs **FY 2083/84 
 - Bilingual: English / नेपाली
 - 100% client-side, no backend needed
 
-## Deploy to GitHub Pages
-1. Fork or clone this repo
-2. Go to **Settings → Pages**
-3. Set source to `main` branch, `/ (root)`
-4. Replace `yourusername` in `index.html`, `sitemap.xml`, `robots.txt` with your GitHub username
-5. Done — live at `https://yourusername.github.io/nepal-tax-calculator/`
+## Deployment
+Hosted on Vercel — any push to main auto-deploys
 
 ## Tax Data Sources
 - IRD Nepal Finance Act 2082/83
